@@ -1,0 +1,94 @@
+# Import Libraries
+import pandas as pd // Pandas
+import metplotlib.pyplot as plt // Table 
+import seaborn as sns 
+
+#Basic command 
+df = pd.read_csv("The csv file name") // Read the dataset
+
+df.head(int) // show the head rows 
+
+df.columns // show the columns names
+
+df.isnull().sum() // check the missing value 
+
+df = df.dropna() //Removing the issing value which is not making ant effects of the analysis 
+
+df.duplicated().sum() // check the duplicated rows
+
+df = df.drop_duplicateds() // Removing the duplicates rows
+
+df = df.drop(columns = ['Numnaed; 0']) // Removing useless rows 
+
+df.to_csv("cleaned_spotify.csv", index=False) // Save cleand dataset
+
+plt.title() // name the tile of the graph
+plt.scatter() // make the a sacatter table
+plt.xlabel() // name x axis 
+plt.ylabel() // name y axis 
+
+plt. show() // show the graph 
+
+df.groupby('')[''].mean() // find the mean value of the string which is comapring 
+
+df.groupby('')[''].mean().sort_values(ascending=False).head(int) // find the highest vlue with the comapring string in rows 
+
+df.groupby('')[''].mean().sort_values(ascending=False).head(int).plot(kind='bar') // plot the graph
+
+// calulate the correlation 
+numeric_df = df.se;ect-dtypes(include=[,]) 
+
+corr_matrix = numeric_df.corr() 
+
+// plot the heatmap
+plt.figure(figsize=(,))  
+
+sns.heatmap(corr_matrix, cmap='coolwarm')
+
+//import the machine learning tools 
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+// select features
+X = df[['danceability',
+        'energy',
+        'loudness',
+        'speechiness',
+        'acousticness',
+        'instrumentalness',
+        'valence',
+        'tempo']]
+
+// target variable
+y = df['popularity']
+
+// split training and testing data
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+// create linear regression model
+model = LinearRegression()
+
+// train model
+model.fit(X_train, y_train)
+
+// predict popularity
+predictions = model.predict(X_test)
+
+// calculate prediction error
+mse = mean_squared_error(y_test, predictions)
+
+print(mse)
+
+// show feature importance
+importance = pd.DataFrame({
+    'Feature': X.columns,
+    'Coefficient': model.coef_
+})
+
